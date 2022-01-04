@@ -2,98 +2,50 @@ import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 void main() {
-  runApp(const XylophoneApp());
+  runApp(XylophoneApp());
 }
 
 class XylophoneApp extends StatelessWidget {
-  const XylophoneApp({Key? key}) : super(key: key);
+  XylophoneApp({Key? key}) : super(key: key);
+
+  final AudioCache player = AudioCache();
+
+  void playSound(int note) {
+    player.play('note$note.wav');
+  }
+
+  Widget buildKey(int note, Color color) {
+    return Expanded(
+      child: TextButton(
+        onPressed: () {
+          playSound(note);
+        },
+        style: TextButton.styleFrom(
+          backgroundColor: color,
+        ),
+        child: const Text(''),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     AudioCache player = AudioCache();
     return MaterialApp(
       home: Scaffold(
+        backgroundColor: Colors.black,
         body: SafeArea(
           child: Center(
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {
-                      player.play('note1.wav');
-                      print('play button pressed');
-                    },
-                    child: const Text(
-                      '1',
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {
-                      player.play('note2.wav');
-                      print('play button 2 pressed');
-                    },
-                    child: const Text(
-                      '2',
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {
-                      player.play('note3.wav');
-                      print('play button 3 pressed');
-                    },
-                    child: const Text(
-                      '3',
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {
-                      player.play('note4.wav');
-                      print('play button 4 pressed');
-                    },
-                    child: const Text(
-                      '4',
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {
-                      player.play('note5.wav');
-                      print('play button 5 pressed');
-                    },
-                    child: const Text(
-                      '5',
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {
-                      player.play('note6.wav');
-                      print('play button 6 pressed');
-                    },
-                    child: const Text(
-                      '6',
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {
-                      player.play('note7.wav');
-                      print('play button 7 pressed');
-                    },
-                    child: const Text(
-                      '7',
-                    ),
-                  ),
-                ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                buildKey(1, Colors.red),
+                buildKey(2, Colors.orange),
+                buildKey(3, Colors.yellow),
+                buildKey(4, Colors.tealAccent),
+                buildKey(5, Colors.green),
+                buildKey(6, Colors.blue),
+                buildKey(7, Colors.purple),
               ],
             ),
           ),
